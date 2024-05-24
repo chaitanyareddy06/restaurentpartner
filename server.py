@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify, render_template
 from flask_mail import Mail, Message
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 import traceback
+
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Configure Flask-Mail for Gmail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -31,7 +34,7 @@ def submit_order():
         name = order_data['name']
         food = order_data['food']
         quantity = order_data['quantity']
-        default_email = 'chaitanyasanikommu123@gmail.com'  # Hardcoded default email
+        default_email = 'default-customer-email@example.com'  # Hardcoded default email
         
         # Create the email content
         msg = Message('New Food Order',
